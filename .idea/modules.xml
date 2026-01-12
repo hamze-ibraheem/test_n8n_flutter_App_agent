@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/agnetic_n8n_apps.iml" filepath="$PROJECT_DIR$/agnetic_n8n_apps.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/agnetic_n8n_apps_android.iml" filepath="$PROJECT_DIR$/android/agnetic_n8n_apps_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/agnetic_n8n_apps.iml" filepath="$PROJECT_DIR$/.idea/agnetic_n8n_apps.iml" />
     </modules>
   </component>
 </project>
