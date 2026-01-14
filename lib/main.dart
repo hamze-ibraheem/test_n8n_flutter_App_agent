@@ -1,1 +1,81 @@
-import 'package:flutter/material.dart';\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'widgets/profile_card.dart';\n\nvoid main() {\n  runApp(const ProviderScope(child: MyApp()));\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      title: 'Flutter Profile App',\n      debugShowCheckedModeBanner: false,\n      theme: ThemeData(\n        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),\n        useMaterial3: true,\n      ),\n      home: const HomePage(),\n    );\n  }\n}\n\nfinal userProfileProvider = StateProvider<UserProfile>((ref) {\n  return UserProfile(\n    userName: \"Hamza Ibrahim\",\n    userEmail: \"hamza.dev@example.com\",\n    // Uncomment line below to test with a real image\n    // avatarUrl: \"https://i.pravatar.cc/150?u=hamza\",\n  );\n});\n\nclass UserProfile {\n  final String userName;\n  final String userEmail;\n  // final String? avatarUrl; // Uncomment if using avatar\n\n  UserProfile({\n    required this.userName,\n    required this.userEmail,\n    // this.avatarUrl,\n  });\n}\n\nclass HomePage extends ConsumerWidget {\n  const HomePage({super.key});\n\n  @override\n  Widget build(BuildContext context, WidgetRef ref) {\n    final userProfile = ref.watch(userProfileProvider).state;\n\n    return Scaffold(\n      backgroundColor: Colors.grey[100],\n      appBar: AppBar(\n        title: const Text('User Dashboard'),\n        centerTitle: true,\n      ),\n      body: Center(\n        child: UserProfileCard(\n          userName: userProfile.userName,\n          userEmail: userProfile.userEmail,\n          // avatarUrl: userProfile.avatarUrl, // Uncomment if using avatar\n          onEditPressed: () {\n            ScaffoldMessenger.of(context).showSnackBar(\n              const SnackBar(content: Text(\"Edit button clicked!\")),\n            );\n          },\n        ),\n      ),\n    );\n  }\n}"
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below.
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically.
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
